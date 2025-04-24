@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header {
+      background-color: #2d3748;
+      color: #ffffff;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+    }
+
+    .logout-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: #FFB500;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .logout-btn:hover {
+      background-color: #e68a00;
+    }
+
+    .dashboard-container {
+      padding: 20px;
+      max-width: 1200px;
+      margin: 20px auto;
+    }
+
+    .class-list {
+      margin-bottom: 20px;
+    }
+
+    .class-item {
+      background-color: #ffffff;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .class-item h2 {
+      margin: 0;
+      font-size: 20px;
+      color: #333;
+    }
+
+    .attendance-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    .attendance-table th, .attendance-table td {
+      padding: 12px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    .attendance-table th {
+      background-color: #FFB500;
+      color: #fff;
+    }
+
+    .attendance-table tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    .attendance-table tr:hover {
+      background-color: #e6e6e6;
+    }
+
+    .search-container {
+      margin: 20px 0;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .search-input {
+      padding: 10px;
+      font-size: 16px;
+      width: 250px;
+      border: 2px solid #ddd;
+      border-radius: 4px;
+    }
+
+    .search-btn {
+      padding: 10px;
+      background-color: #FFB500;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    .search-btn:hover {
+      background-color: #e68a00;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    Student Dashboard
+    <button class="logout-btn">Logout</button>
+  </div>
+
+  <div class="dashboard-container">
+    <div class="search-container">
+      <input class="search-input" type="text" id="searchAttendance" placeholder="Search by date...">
+      <button class="search-btn" onclick="searchAttendance()">Search</button>
+    </div>
+
+    <div class="class-list">
+      <div class="class-item">
+        <h2>INFO 530 - Attendance</h2>
+        <table class="attendance-table" id="attendanceTable1">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Mode of Attendance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>04-10-25</td>
+              <td>Present</td>
+              <td>Remote</td>
+            </tr>
+            <tr>
+              <td>04-17-25</td>
+              <td>Absent</td>
+              <td>Remote</td>
+            </tr>
+            <tr>
+              <td>04-24-25</td>
+              <td>Present</td>
+              <td>Remote</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="class-item">
+        <h2>INFO 520 - Attendance</h2>
+        <table class="attendance-table" id="attendanceTable2">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Mode of Attendance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>04-08-25</td>
+              <td>Present</td>
+              <td>Remote</td>
+            </tr>
+            <tr>
+              <td>04-10-25</td>
+              <td>Present</td>
+              <td>In-Person</td>
+            </tr>
+            <tr>
+              <td>04-15-25</td>
+              <td>Present</td>
+              <td>Remote</td>
+            </tr>
+            <tr>
+              <td>04-17-25</td>
+              <td>Absent</td>
+              <td>N/A</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function searchAttendance() {
+      var input = document.getElementById("searchAttendance").value;
+      var tables = document.querySelectorAll(".attendance-table");
+      
+      tables.forEach(function(table) {
+        var rows = table.querySelectorAll("tbody tr");
+        rows.forEach(function(row) {
+          var date = row.cells[0].textContent;
+          if (date.includes(input)) {
+            row.style.display = "";
+          } else {
+            row.style.display = "none";
+          }
+        });
+      });
+    }
+  </script>
+</body>
+</html>
