@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Class Tracker</title>
+  <style>
+    body {
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px;
+  background-color: #f5f5f5;
+}
+
+h1 {
+  margin-bottom: 40px;
+  color: #000000;
+}
+
+.login-container {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  max-width: 700px;
+}
+
+.login-box {
+  border: 2px solid #000000;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+input, button {
+  padding: 10px;
+  font-size: 16px;
+  width: 100%;
+  margin-top: 10px;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #FFB500;
+  color: #000000;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #e6a400;
+}
+  </style>
+</head>
+<body>
+  <h1>Class Tracker</h1>
+
+  <div class="login-container">
+
+    <div class="login-box">
+      <h3>Student Login</h3>
+      <input type="text" id="studentID" placeholder="Student ID">
+      <input type="password" id="studentPassword" placeholder="Password">
+      <button id="studentLoginBtn">Login as Student</button>
+    </div>
+
+    <div class="login-box">
+      <h3>Instructor Login</h3>
+      <input type="text" id="instructorID" placeholder="Instructor ID">
+      <input type="password" id="instructorPassword" placeholder="Password">
+      <button id="instructorLoginBtn">Login as Instructor</button>
+    </div>
+
+  </div>
+</body>
+</html>
