@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 
-const Navbar = ({ loggedIn, appName = "AttendTrack" }) => {
+const Navbar = ({ loggedIn, appName = "Class Tracker" }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   
   const toggleMenu = () => {
