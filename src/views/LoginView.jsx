@@ -1,45 +1,110 @@
 // src/views/LoginView.jsx
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../App.css';
 
 const LoginView = ({ onLogin }) => {
-  const [employeeId, setEmployeeId] = useState('');
-  const [error, setError] = useState('');
+  const navigate = useNavigate();
   
-  const handleSubmit = (e) => {
+  // Student login state
+  const [studentId, setStudentId] = useState('');
+  const [studentPassword, setStudentPassword] = useState('');
+  
+  // Instructor login state
+  const [instructorId, setInstructorId] = useState('');
+  const [instructorPassword, setInstructorPassword] = useState('');
+  
+  // Error states
+  const [studentError, setStudentError] = useState('');
+  const [instructorError, setInstructorError] = useState('');
+  
+  const handleStudentLogin = (e) => {
     e.preventDefault();
     
-    if (!employeeId.trim()) {
-      setError('Please enter your Employee ID');
-      return;
-    }
+    // Allow login even with empty values
+    setStudentError('Student login not implemented in this version');
     
-    // In a real app, you would validate credentials with a backend service
-    // For now, we'll just accept any non-empty ID
-    onLogin(employeeId);
+    // If we wanted to actually log in the student:
+    // onLogin(studentId || 'defaultStudentId');
+    // navigate('/student/dashboard');
+  };
+  
+  const handleInstructorLogin = (e) => {
+    e.preventDefault();
+    
+    // Allow login with any values, including empty
+    onLogin(instructorId || 'defaultInstructorId');
+    navigate('/dashboard');
+  };
+  
+  // Handle key press events for instructor login
+  const handleInstructorKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleInstructorLogin(e);
+    }
+  };
+  
+  // Handle key press events for student login
+  const handleStudentKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleStudentLogin(e);
+    }
   };
   
   return (
-    <div className="content-container">
-      <h1>AttendTrack - Instructor Login</h1>
-      <p>Welcome to the attendance tracking system. Please log in with your employee ID.</p>
-      
-      <form onSubmit={handleSubmit} className="login-form">
-        <div className="form-group">
-          <label htmlFor="employeeId">Employee ID</label>
-          <input
-            type="text"
-            id="employeeId"
-            value={employeeId}
-            onChange={(e) => setEmployeeId(e.target.value)}
-            placeholder="Enter your employee ID"
-          />
+    <div className="login-page">
+      <h1>Class Tracker</h1>
+      <div className="login-container">
+        <div className="login-box">
+          <h3>Student Login</h3>
+          <form onSubmit={handleStudentLogin}>
+            <input 
+              type="text" 
+              id="studentID" 
+              placeholder="Student ID"
+              value={studentId}
+              onChange={(e) => setStudentId(e.target.value)}
+              onKeyPress={handleStudentKeyPress}
+            />
+            <input 
+              type="password" 
+              id="studentPassword" 
+              placeholder="Password"
+              value={studentPassword}
+              onChange={(e) => setStudentPassword(e.target.value)}
+              onKeyPress={handleStudentKeyPress}
+            />
+            {studentError && <div className="error-message">{studentError}</div>}
+            <button type="submit" id="studentLoginBtn">Login as Student</button>
+          </form>
         </div>
         
-        {error && <div className="error-message">{error}</div>}
-        
-        <button type="submit">Login</button>
-      </form>
+        <div className="login-box">
+          <h3>Instructor Login</h3>
+          <form onSubmit={handleInstructorLogin}>
+            <input 
+              type="text" 
+              id="instructorID" 
+              placeholder="Instructor ID"
+              value={instructorId}
+              onChange={(e) => setInstructorId(e.target.value)}
+              onKeyPress={handleInstructorKeyPress}
+            />
+            <input 
+              type="password" 
+              id="instructorPassword" 
+              placeholder="Password"
+              value={instructorPassword}
+              onChange={(e) => setInstructorPassword(e.target.value)}
+              onKeyPress={handleInstructorKeyPress}
+            />
+            {instructorError && <div className="error-message">{instructorError}</div>}
+            <button type="submit" id="instructorLoginBtn">Login as Instructor</button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };

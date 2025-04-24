@@ -5,10 +5,10 @@ import Navbar from './components/Navbar';
 
 // Import your view components
 import LoginView from './views/LoginView';
-import InstructorDash from './views/InstructorDash';  // Keep this import name
-import Attendance from './views/Attendance';  // Keep this import name
-import CourseView from './views/CourseView';  // Keep this import name
-// Import ReportAttendanceView or comment out the route
+import InstructorDash from './views/InstructorDash';
+import Attendance from './views/Attendance';
+import CourseView from './views/CourseView';
+import LogoutComponent from './views/LogoutComponent';
 // import ReportAttendanceView from './views/ReportAttendanceView';
 import './App.css';
 
@@ -58,7 +58,7 @@ function App() {
         {/* Include Navbar across all pages with appropriate props */}
         <Navbar 
           loggedIn={loggedIn} 
-          appName="AttendTrack" 
+          appName="Class Tracker" 
         />
         
         <div className="app-content">
@@ -109,10 +109,10 @@ function App() {
             />
             */}
             
-            {/* Logout route */}
+            {/* Updated Logout route with dedicated component */}
             <Route 
               path="/logout" 
-              element={<div onLoad={handleLogout}>Logging out...</div>} 
+              element={<LogoutComponent onLogout={handleLogout} />} 
             />
             
             {/* Catch-all redirect to login */}
