@@ -32,9 +32,15 @@ const LoginView = ({ onLogin }) => {
   const handleInstructorLogin = (e) => {
     e.preventDefault();
     
-    // Allow login with any values, including empty
-    onLogin(instructorId || 'defaultInstructorId');
-    navigate('/dashboard');
+    // Allow login with any non-empty values
+    if(instructorId.trim() && instructorPassword.trim()) {
+      setInstructorError("");
+      onLogin(instructorId || 'defaultInstructorId');
+      navigate('/dashboard');
+    } else { 
+      setInstructorError("Invalid Username or Password. Please try again");
+    }
+
   };
   
   // Handle key press events for instructor login
