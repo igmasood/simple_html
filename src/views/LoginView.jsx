@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
+// import { locals } from '../../../backend/app';
 
 const LoginView = ({ onLogin }) => {
   const navigate = useNavigate();
@@ -29,10 +30,44 @@ const LoginView = ({ onLogin }) => {
     // navigate('/student/dashboard');
   };
   
-  const handleInstructorLogin = (e) => {
+  const handleInstructorLogin = async (e) => {
     e.preventDefault();
     
+    try {
+      const response = await fetch('http://localhost:5000/login/instructor', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: instructorId,
+          password: instructorPassword
+        })
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+
+
+        //Use local storage to store info
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('userID', data.userID);
+        localStorage.setItem('firstName', data.firstName);
+        localStorage.setItem('lastName', data.lastName);
+        localStorage.setItem('role', 'instructor');
+
+        setInstructorId('');
+        onLogin(data.userID);
+        navigate('/dashboard');
+      } else {
+        const error = await response.json();
+        setInstructorError(error.message || 'Login Failed')
+      }
+    } catch (err) {
+      setInstructorError("Error while logging in.")
+
+    }
+
     // Allow login with any non-empty values
+    /*
     if(instructorId.trim() && instructorPassword.trim()) {
       setInstructorError("");
       onLogin(instructorId || 'defaultInstructorId');
@@ -40,7 +75,8 @@ const LoginView = ({ onLogin }) => {
     } else { 
       setInstructorError("Invalid Username or Password. Please try again");
     }
-
+    */
+    
   };
   
   // Handle key press events for instructor login
