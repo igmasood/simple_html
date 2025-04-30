@@ -18,6 +18,7 @@
       padding: 20px;
       text-align: center;
       font-size: 24px;
+      position: relative;
     }
 
     .logout-btn {
@@ -119,7 +120,7 @@
 <body>
   <div class="header">
     Student Dashboard
-    <button class="logout-btn">Logout</button>
+    <button class="logout-btn" onclick="logout()">Logout</button>
   </div>
 
   <div class="dashboard-container">
@@ -200,7 +201,7 @@
     function searchAttendance() {
       var input = document.getElementById("searchAttendance").value;
       var tables = document.querySelectorAll(".attendance-table");
-      
+
       tables.forEach(function(table) {
         var rows = table.querySelectorAll("tbody tr");
         rows.forEach(function(row) {
@@ -212,6 +213,10 @@
           }
         });
       });
+    }
+
+    function logout() {
+      window.location.href = "login.html";
     }
   </script>
 </body>
