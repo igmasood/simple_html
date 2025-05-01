@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 
-const Navbar = ({ loggedIn, appName = "Class Tracker" }) => {
+const Navbar = ({ loggedIn, userRole, appName = "Class Tracker" }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   
   const toggleMenu = () => {
@@ -14,7 +14,7 @@ const Navbar = ({ loggedIn, appName = "Class Tracker" }) => {
     setMenuOpen(false);
   };
 
-  // Render navigation links
+  // Render navigation links based on user role
   const renderNavLinks = () => {
     if (!loggedIn) {
       return (
@@ -24,6 +24,20 @@ const Navbar = ({ loggedIn, appName = "Class Tracker" }) => {
       );
     }
 
+    if (userRole === 'student') {
+      return (
+        <>
+          <li>
+            <Link to="/student/dashboard" onClick={closeMenu}>Dashboard</Link>
+          </li>
+          <li>
+            <Link to="/logout" onClick={closeMenu}>Logout</Link>
+          </li>
+        </>
+      );
+    }
+
+    // Default to instructor navigation
     return (
       <>
         <li>
@@ -42,7 +56,13 @@ const Navbar = ({ loggedIn, appName = "Class Tracker" }) => {
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <Link to={loggedIn ? '/dashboard' : '/'} className="navbar-logo">
+        <Link 
+          to={loggedIn 
+            ? (userRole === 'student' ? '/student/dashboard' : '/dashboard')
+            : '/'
+          } 
+          className="navbar-logo"
+        >
           {appName}
         </Link>
         
