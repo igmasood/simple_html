@@ -21,26 +21,17 @@ const LoginView = ({ onLogin }) => {
   const handleStudentLogin = (e) => {
     e.preventDefault();
     
-    // Allow login even with empty values
-    setStudentError('Student login not implemented in this version');
-    
-    // If we wanted to actually log in the student:
-    // onLogin(studentId || 'defaultStudentId');
-    // navigate('/student/dashboard');
+    // Allow login with any values, including empty - for demo purposes
+    onLogin(studentId || 'defaultStudentId', 'student');
+    navigate('/student/dashboard');
   };
   
   const handleInstructorLogin = (e) => {
     e.preventDefault();
     
-    // Allow login with any non-empty values
-    if(instructorId.trim() && instructorPassword.trim()) {
-      setInstructorError("");
-      onLogin(instructorId || 'defaultInstructorId');
-      navigate('/dashboard');
-    } else { 
-      setInstructorError("Invalid Username or Password. Please try again");
-    }
-
+    // Allow login with any values, including empty - for demo purposes
+    onLogin(instructorId || 'defaultInstructorId', 'instructor');
+    navigate('/dashboard');
   };
   
   // Handle key press events for instructor login
